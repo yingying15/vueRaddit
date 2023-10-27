@@ -3,6 +3,7 @@
 import { useScroll } from '@vueuse/core'
 import layoutNav from './components/layoutNav.vue'
 import layoutHeader from './components/layoutHeader.vue'
+import layoutFooter from './components/layoutFooter.vue'
 import home from '@/views/Home/index.vue'
 import { useCategoryStores } from '@/stores/index.js'
 import { ref } from 'vue';
@@ -46,10 +47,8 @@ getList()
       <el-main height="500px">
         <home :pros="cateList"></home>
       </el-main>
-      <el-footer height="2000px">
-        <div class="foo">
-          我是foot里面的div 是粉色的 footer是紫色的
-        </div>
+      <el-footer height="400px">
+        <layoutFooter></layoutFooter>
       </el-footer>
     </el-container>
   </div>
@@ -169,13 +168,8 @@ getList()
 
     //底部样式
     .el-footer {
-      background-color: purple;
       padding: 0;
 
-      .foo {
-        height: 300px;
-        background-color: pink;
-      }
     }
   }
 }</style>
