@@ -1,7 +1,9 @@
 <script setup>
-import MagnifierPicture from '@/components/MagnifierPicture.vue'
+// import MagnifierPicture from '@/components/MagnifierPicture.vue'
 import { getGoodsDetail } from '@/apis/goodDetail.js'
+import ListItem from './ListItem.vue'
 import { ref } from 'vue'
+
 //得到路由参数
 import { useRoute } from 'vue-router';
 const route = useRoute()
@@ -15,6 +17,8 @@ const getDetails = async () => {
 getDetails()
 //切换标签
 const activeName = ref('proMessage')
+//热榜和周榜的数据
+const titleHour=ref('24小时热销榜')
 </script>
 <template>
     <div class="box">
@@ -30,7 +34,11 @@ const activeName = ref('proMessage')
         <el-card>
             <div class="box">
                 <div class="left">
-                    <MagnifierPicture :pictures="goodDetail.mainPictures"></MagnifierPicture>
+                    <!-- components中的组件自动被注册 -->
+                    <!-- <MagnifierPicture :pictures="goodDetail.mainPictures"></MagnifierPicture> -->
+                    <!-- <ImageView :pictures="goodDetail.mainPictures"></ImageView> -->
+                    <!-- 使用插件注册的方式,将组件进行全局注册 -->
+                    <ImageVi :pictures="goodDetail.mainPictures"></ImageVi>
                     <ul class="left-footer">
                         <li>
                             <p>销量人气</p>
@@ -73,7 +81,9 @@ const activeName = ref('proMessage')
                 </div>
             </div>
         </el-card>
-        <!-- 商品详情-->
+     <!-- 商品底部-->
+    <div class="body-footer">
+        
         <div class="product-card">
             <el-tabs v-model="activeName" type="card" class="demo-tabs">
                 <el-tab-pane label="商品详情" name="proMessage">
@@ -81,6 +91,7 @@ const activeName = ref('proMessage')
                 <el-tab-pane label="商品评价" name="proAssess">
                 </el-tab-pane>
             </el-tabs>
+            <!-- 商品详情-->
             <div class="body">
                 <div class="mes" v-if="activeName === 'proMessage'">
                     <div class="top">
@@ -89,9 +100,10 @@ const activeName = ref('proMessage')
                         <p>材质<span>材质</span></p>
                     </div>
                     <div class="footer">
-                        <img :src="item" v-for="(item, index) in goodDetail.details.pictures" :key="index" alt="图片">
+                        <img :src="item" v-for="(item, index) in goodDetail.details?.pictures" :key="index" alt="图片">
                     </div>
                 </div>
+                 <!-- 商品评价-->
                 <div class="assess" v-else>
                     <div class="top">
                         <div class="left-top">
@@ -121,13 +133,18 @@ const activeName = ref('proMessage')
                 </div>
             </div>
         </div>
+        <!-- 热榜 -->
+        <ListItem :goodDetail="goodDetail.hotByDay?.slice(0,3)" :title="titleHour"></ListItem>
     </div>
+       
+        
+</div>
 </template>
 <style scoped lang="scss">
 .breadcrumb {
     margin-top: 20px;
 }
-
+//商品图片和基本信息
 .el-card {
     margin-top: 20px;
     height: 600px;
@@ -242,7 +259,6 @@ const activeName = ref('proMessage')
 .product-card {
     width: 1000px;
     background-color: #FFFFFF;
-    margin-top: 20px;
     padding: 20px 30px;
 
     //商品详情
@@ -356,4 +372,13 @@ const activeName = ref('proMessage')
         }
         //底部
     }
-}</style>
+}
+//底部
+.body-footer{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+</style>
