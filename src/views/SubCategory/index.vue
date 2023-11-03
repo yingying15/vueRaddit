@@ -69,9 +69,7 @@ const handleClick = () => {
             <!-- <ul class="body" v-infinite-scroll="load"  style="overflow: auto"> -->
                 <div class="body">
                     <li  v-for="item in goodList" :key="item.id" >
-                        <RouterLink :to="`/Detail/${item.id}`" >
-                            <GoodItem :item="item" />
-                        </RouterLink>
+                        <GoodItem :item="item" />
                     </li>
                 </div>
         </el-card>

@@ -21,7 +21,8 @@ getNewPro()
             <li v-for="item in newPros" :key="item.id">
                 <!-- 路由跳的页面都是一样的,只是商品不一样 所以不用担心 -->
             <RouterLink  :to="`/Detail/${item.id}`">
-                <img :src="item.picture" alt="图片">
+                <!-- 全局指令,图片用懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+                <img v-lazy-img="item.picture"  alt="图片">
                 <p class="name">{{item.desc}}</p>
                 <p class="price">&yen;{{item.price}}</p>
             </RouterLink>

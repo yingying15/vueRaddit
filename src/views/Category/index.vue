@@ -34,7 +34,8 @@ const {bannerList}=useBanner()
             <ul>
                 <li v-for="item in list.children" :key="item.id">
                     <RouterLink :to="`/SubCategory/${item.id}`">
-                    <img :src="item.picture" alt="图片">
+                    <!-- 全局指令,图片懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+                    <img v-lazy-img="item.picture"  alt="图片">
                     <span>{{item.name}}</span>
                     </RouterLink>
                 </li>

@@ -45,7 +45,7 @@ const router = createRouter({
       
     }
   ],
-   // 路由滚动行为定制
+   // 路由滚动行为定制 切换页面的时候让页面滚动到顶部
    scrollBehavior () {
     return {
       top: 0

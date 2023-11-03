@@ -20,7 +20,8 @@ getHotPro()
             <li v-for="item in hotPros" :key="item.id">
                 <!-- 路由跳的页面都是一样的,只是商品不一样 所以不用担心 -->
             <RouterLink to="/">
-                <img :src="item.picture" alt="图片">
+                <!-- 全局指令,图片懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+                <img v-lazy-img="item.picture" alt="图片">
                 <p class="name">{{item.title}}</p>
                 <p class="price">{{item.alt}}</p>
             </RouterLink>

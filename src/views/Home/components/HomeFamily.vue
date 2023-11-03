@@ -18,11 +18,13 @@ defineProps({
         </div>
         <div class="bottom">
             <router-link to="/">
-                <img :src="item.picture" alt="图片" class="left">
+                <!-- 全局指令,图片懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+                <img v-lazy-img="item.picture"  alt="图片" class="left">
             </router-link>
             <ul>
                 <li v-for="j in item.goods.slice(0,8)" :key="j.id">
-                    <img :src="j.picture" alt="图片">
+                    <!-- 全局指令,图片懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+                    <img v-lazy-img="j.picture"  alt="图片">
                     <p>{{j.name}}</p>
                     <p class="message">{{j.desc}}</p>
                     <span class="money">&yen;{{j.price}}</span>

@@ -18,7 +18,8 @@ defineProps({
          <ul  class="bottom">
             <li  v-for="i in item.goods.slice(0,3)" :key="i.id">
                 <div class="header">
-                    <img :src="i.picture" alt="图片">
+                    <!-- 全局指令,图片懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+                    <img v-lazy-img="i.picture" alt="图片">
                     <div class="header-bot">
                         <div class="left">
                             <p>{{i.name}}</p>

@@ -73,7 +73,7 @@ const updateDisabledStatus = (specs, pathMap) => {
   })
 }
 
-
+//-----------知道组件接收什么数据
 export default {
   name: 'XtxGoodSku',
   props: {

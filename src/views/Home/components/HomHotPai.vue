@@ -41,7 +41,8 @@ const handleCurrentChange=()=>{
     <template #new>
         <ul>
             <RouterLink to="/">
-                <img :src="item.picture" alt="图片"  v-for="item in arr" :key="item.id">
+                <!-- 全局指令,图片懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+                <img v-lazy-img="item.picture" alt="图片"  v-for="item in arr" :key="item.id">
             </RouterLink>
         </ul>
     </template>

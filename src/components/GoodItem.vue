@@ -9,10 +9,12 @@ defineProps({
 <template>
     <!-- 商品详情组件,外部传过来item集合,集合中有几个数据,就循环几个 -->
         <li>
-            <img :src="item.picture" alt="图片">
-            <p>{{item.name}}</p>
-            <p>{{item.desc}}</p>
-            <p>&yen;{{item.price}}</p>
+            <RouterLink :to="`/Detail/${item.id}`">
+                <img :src="item.picture" alt="图片">
+                <p>{{item.name}}</p>
+                <p>{{item.desc}}</p>
+                <p>&yen;{{item.price}}</p>
+            </RouterLink>
         </li>
 </template>
 <style lang="scss" scoped>

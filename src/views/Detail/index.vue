@@ -31,6 +31,10 @@ const subNum=()=>{
         count.value--
     }
 }
+//sku组件输出
+const changePro=(data)=>{
+    console.log(data);
+}
 </script>
 <template>
     <div class="box">
@@ -87,11 +91,8 @@ const subNum=()=>{
                         <p class="rightP">配送<span>忙忙忙忙忙忙忙</span></p>
                         <p class="rightP">服务<span>忙忙忙忙忙忙忙</span></p>
                     </div>
-                    <!-- 规格 -->
-                    <div class="specs">
-                        <p>{{goodDetail.specs?.[0].name}}</p>
-                        <img class="specs-img" :src="item.picture" alt="item.name" v-for="(item,index) in goodDetail.specs?.[0].values" :key="index">
-                    </div>
+                    <!-- 规格用sku组件 -->
+                    <XtxSku :goods="goodDetail" @change="changePro"></XtxSku>
                     <!-- 数量 -->
                     <div class="count">
                         <p>数量</p>
@@ -101,7 +102,7 @@ const subNum=()=>{
                             <button @click="addNum">+</button>
                         </div>
                     </div>
-                    <el-button size="large" >加入购物车</el-button>
+                    <el-button class="addCart" size="large" >加入购物车</el-button>
                 </div>
             </div>
         </el-card>
@@ -124,7 +125,8 @@ const subNum=()=>{
                         <p>材质<span>材质</span></p>
                     </div>
                     <div class="footer">
-                        <img :src="item" v-for="(item, index) in goodDetail.details?.pictures" :key="index" alt="图片">
+                         <!-- 全局指令,图片懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+                        <img v-lazy-img="item"  v-for="(item, index) in goodDetail.details?.pictures" :key="index" alt="图片">
                     </div>
                 </div>
                  <!-- 商品评价-->
@@ -274,28 +276,12 @@ const subNum=()=>{
                     }
                 }
             }
-            //规格颜色
-            .specs{
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-                .el-button{
-                    margin: 0;
-                }
-               
-                .specs-img{
-                    width: 50px;
-                    height: 50px;
-                    margin-top: 10px;
-                    margin-left: 20px;
-                    border: #E4E4E4 1px solid;
-                    
-                }
-            }
             //数量
             .count{
                 display: flex;
                 align-items: center;
+                margin-left: 10px;
+                margin-bottom: 5px;
                 .count-button{
                     height: 30px;
                     margin-left: 20px;
@@ -315,6 +301,13 @@ const subNum=()=>{
                     }
                 }
                 
+            }
+            //加入购物车
+            .addCart{
+                margin-left: 10px;
+                width: 160px;
+                background-color: $xtxColor;
+                color: #FFFFFF;
             }
         }
     }

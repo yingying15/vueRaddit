@@ -21,9 +21,8 @@ defineProps({
  <div class="home-banner">
     <el-carousel height="500px">
       <el-carousel-item v-for="item in list" :key="item.id">
-        <img
-          :src="item.imgUrl"
-          alt="图片">
+        <!-- 全局指令,图片懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+        <img v-lazy-img="item.imgUrl"  alt="图片">
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -39,7 +38,8 @@ defineProps({
           <ul>
             <li v-for="pro in item.goods" :key="pro.id">
               <RouterLink to="/">
-                <img :src="pro.picture" alt="" />
+                <!-- 全局指令,图片懒加载,只有图片出现在视口范围内,才会加载该图片 -->
+                <img v-lazy-img="pro.picture" alt="" />
                 <div class="info">
                   <p class="name ellipsis-2">
                     {{pro.name}}
