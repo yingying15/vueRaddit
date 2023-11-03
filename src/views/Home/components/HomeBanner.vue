@@ -4,7 +4,7 @@ import { ref } from 'vue';
 //获取轮播图
 const list=ref([])
 const getBannerList = async () => {
-  const res = await getBanner()
+  const res = await getBanner(1)
   list.value=res.data.result
 }
 getBannerList()

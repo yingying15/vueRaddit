@@ -4,7 +4,7 @@ import { useScroll } from '@vueuse/core'
 import layoutNav from './components/layoutNav.vue'
 import layoutHeader from './components/layoutHeader.vue'
 import layoutFooter from './components/layoutFooter.vue'
-import home from '@/views/Home/index.vue'
+// import home from '@/views/Home/index.vue'
 import { useCategoryStores } from '@/stores/index.js'
 import { ref } from 'vue';
 //获取被卷去的高度
@@ -17,6 +17,7 @@ const cateStores = useCategoryStores()
 const getList = async () => {
   await cateStores.setList()
   cateList.value = cateStores.cateList
+  console.log(cateList.value)
 }
 getList()
 </script>
@@ -30,7 +31,7 @@ getList()
             <!-- 导航区域 -->
             <ul class="app-header-nav ">
               <li class="home" v-for="item in cateList" :key="item.id">
-                <RouterLink to="/">{{item.name}}</RouterLink>
+                <RouterLink :to="`/category/${item.id}`">{{item.name}}</RouterLink>
               </li>
             </ul>
             <div class="right">
@@ -45,7 +46,7 @@ getList()
         <layoutHeader :list="cateList"></layoutHeader>
       </el-header>
       <el-main height="500px">
-        <home :pros="cateList"></home>
+        <RouterView></RouterView>
       </el-main>
       <el-footer height="400px">
         <layoutFooter></layoutFooter>
@@ -169,7 +170,6 @@ getList()
     //底部样式
     .el-footer {
       padding: 0;
-
     }
   }
 }</style>

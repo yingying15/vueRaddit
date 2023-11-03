@@ -12,8 +12,13 @@ defineProps({
 <template>
 <div class="pannel">
     <div class="top">
-        <span class="left">{{title}}</span>
-        <span class="right">{{subTitle}}</span>
+        <div class="topLeft">
+            <span class="left">{{title}}</span>
+            <span class="right">{{subTitle}}</span>
+        </div>
+        <div class="topRight">
+            <slot name="more"></slot>
+        </div>
     </div>
     <slot name="new"></slot>
 </div>
@@ -25,13 +30,19 @@ defineProps({
     //面板上部分
     .top{
         margin-bottom: 20px;
-        .left{
+        display: flex;
+        justify-content: space-between;
+        .topLeft{
+            flex: 1;
+            .left{
             font-size: 3rem;
             margin-right: 10px;
+            }
+            .right{
+                color: #999;
+            }
         }
-        .right{
-            color: #999;
-        }
+        
     }
 }
 </style>

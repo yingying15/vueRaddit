@@ -15,8 +15,10 @@ defineProps({
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
     </el-menu-item>
-    <el-menu-item index="1" v-for="item in list" :key="item.id">{{ item.name }}</el-menu-item>
-    <el-menu-item index="1">
+    <el-menu-item  v-for="item in list" :key="item.id">
+      <RouterLink :to="`/category/${item.id}`"> {{ item.name }}</RouterLink>
+    </el-menu-item>
+    <el-menu-item >
       <div class="search">
         <i class="iconfont icon-sousuo"></i>
         <input type="text" placeholder="搜一搜">

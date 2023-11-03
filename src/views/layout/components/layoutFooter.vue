@@ -110,6 +110,7 @@
   padding-bottom: 2em;
   padding-top: 5rem;
   background-color: #fff;
+  overflow: hidden;
   .footerTopItem {
     border-right: 1px solid black;
 

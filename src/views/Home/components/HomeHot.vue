@@ -1,3 +1,4 @@
+<!-- 人气推荐 -->
 <script setup>
 import homePannel from './HomePannel.vue'
 import {ref} from 'vue'
@@ -30,6 +31,13 @@ getHotPro()
 </template> 
 <style scoped lang="scss">
 @import "@/styles/Home/pannelone.scss";
+li{
+    transition: all .5s;
+    &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+        }
+}
 .price{
     color: #999;
 }

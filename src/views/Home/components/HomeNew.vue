@@ -1,4 +1,4 @@
-
+<!-- 新鲜好物 -->
 <script setup>
 import homePannel from './HomePannel.vue'
 import {ref} from 'vue'
@@ -20,7 +20,7 @@ getNewPro()
           <ul class="goods-list">
             <li v-for="item in newPros" :key="item.id">
                 <!-- 路由跳的页面都是一样的,只是商品不一样 所以不用担心 -->
-            <RouterLink to="/">
+            <RouterLink  :to="`/Detail/${item.id}`">
                 <img :src="item.picture" alt="图片">
                 <p class="name">{{item.desc}}</p>
                 <p class="price">&yen;{{item.price}}</p>
@@ -32,6 +32,13 @@ getNewPro()
 </template>
 <style scoped lang="scss">
 @import "@/styles/home/pannelone.scss";
+li{
+    transition: all .5s;
+    &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+        }
+}
 .price{
     color: $priceColor;
 }
