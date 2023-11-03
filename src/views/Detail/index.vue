@@ -19,6 +19,18 @@ getDetails()
 const activeName = ref('proMessage')
 //热榜和周榜的数据
 const titleHour=ref('24小时热销榜')
+//数量
+const count=ref(1)
+//增加数量
+const addNum=()=>{
+    count.value++
+}
+//减少数量
+const subNum=()=>{
+    if(count.value>1){
+        count.value--
+    }
+}
 </script>
 <template>
     <div class="box">
@@ -75,8 +87,20 @@ const titleHour=ref('24小时热销榜')
                         <p class="rightP">配送<span>忙忙忙忙忙忙忙</span></p>
                         <p class="rightP">服务<span>忙忙忙忙忙忙忙</span></p>
                     </div>
-                    <p>规格</p>
-                    <p>数量</p>
+                    <!-- 规格 -->
+                    <div class="specs">
+                        <p>{{goodDetail.specs?.[0].name}}</p>
+                        <img class="specs-img" :src="item.picture" alt="item.name" v-for="(item,index) in goodDetail.specs?.[0].values" :key="index">
+                    </div>
+                    <!-- 数量 -->
+                    <div class="count">
+                        <p>数量</p>
+                        <div class="count-button">
+                            <button @click="subNum">-</button>
+                            <input type="text" class="num" v-model="count" disabled>
+                            <button @click="addNum">+</button>
+                        </div>
+                    </div>
                     <el-button size="large" >加入购物车</el-button>
                 </div>
             </div>
@@ -96,7 +120,7 @@ const titleHour=ref('24小时热销榜')
                 <div class="mes" v-if="activeName === 'proMessage'">
                     <div class="top">
                         <p>容量<span>容量</span></p>
-                        <p>产地<span>产地</span></p>
+                        <p>产地<span>{{goodDetail.specs?.[2]?.name || '产地'}}</span></p>
                         <p>材质<span>材质</span></p>
                     </div>
                     <div class="footer">
@@ -201,7 +225,6 @@ const titleHour=ref('24小时热销榜')
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
-                width: 600px;
             }
 
             //right的儿子
@@ -250,6 +273,48 @@ const titleHour=ref('24小时热销榜')
                         margin-left: 20px;
                     }
                 }
+            }
+            //规格颜色
+            .specs{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                .el-button{
+                    margin: 0;
+                }
+               
+                .specs-img{
+                    width: 50px;
+                    height: 50px;
+                    margin-top: 10px;
+                    margin-left: 20px;
+                    border: #E4E4E4 1px solid;
+                    
+                }
+            }
+            //数量
+            .count{
+                display: flex;
+                align-items: center;
+                .count-button{
+                    height: 30px;
+                    margin-left: 20px;
+                    border: #E4E4E4 1px solid;
+                    border-radius: 2px;
+                    .num{
+                        width: 50px;
+                        height: 100%;
+                        border-left: #E4E4E4 1px solid;
+                        border-right: #E4E4E4 1px solid;
+                        text-align: center;
+                    }
+                    button{
+                        height: 100%;
+                        width: 30px;
+                        border:none;
+                    }
+                }
+                
             }
         }
     }
