@@ -1,4 +1,5 @@
 <script setup>
+import MagnifierPicture from '@/components/MagnifierPicture.vue'
 import { getGoodsDetail } from '@/apis/goodDetail.js'
 import { ref } from 'vue'
 //得到路由参数
@@ -29,14 +30,7 @@ const activeName = ref('proMessage')
         <el-card>
             <div class="box">
                 <div class="left">
-                    <div class="left-header">
-                        <img :src="goodDetail.mainPictures?.[0]" alt="图片">
-                        <ul>
-                            <li v-for="(item, index) in goodDetail.mainPictures" :key=index>
-                                <img :src="item" alt="图片">
-                            </li>
-                        </ul>
-                    </div>
+                    <MagnifierPicture :pictures="goodDetail.mainPictures"></MagnifierPicture>
                     <ul class="left-footer">
                         <li>
                             <p>销量人气</p>
@@ -136,56 +130,17 @@ const activeName = ref('proMessage')
 
 .el-card {
     margin-top: 20px;
-    height: 700px;
+    height: 600px;
 
     .box {
         height: 600px;
         display: flex;
         justify-content: space-between;
-        // border: 1px solid green;
         box-sizing: border-box;
 
         //左边
         .left {
             width: 44%;
-
-            // border: 1px solid red;
-            //上半部分图片
-            .left-header {
-                display: flex;
-                justify-content: space-between;
-
-                //左边大图片
-                img {
-                    width: 430px;
-                    height: 450px;
-                    object-fit: cover;
-                    background: none;
-                }
-
-                //右边小图片
-                ul {
-                    width: 110px;
-                    margin: 0;
-                    padding: 0;
-
-                    li {
-                        width: 100px;
-                        height: 80px;
-                        margin-top: 12px;
-                        margin-left: 5px;
-
-                        &:first-child {
-                            margin-top: 0;
-                        }
-
-                        img {
-                            background: none;
-                        }
-                    }
-                }
-            }
-
             //下面内容
             .left-footer {
                 display: flex;
@@ -219,8 +174,7 @@ const activeName = ref('proMessage')
         .right {
             width: 56%;
             height: 500px;
-            // border: 1px solid blue;
-            padding: 0 40px;
+            padding: 0 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
