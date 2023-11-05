@@ -1,24 +1,46 @@
+
+<script setup>
+import {useUserStores} from '@/stores/index.js'
+import {User} from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router';
+const router=useRouter()
+//退出登录
+const quitLogin=()=>{
+  useUserStores().clearUser()
+  router.replace({path:'/login'})
+}
+//登录
+const toLogin=()=>{
+  router.push({path:'/login'})
+}
+</script>
+
 <template>
-    <!-- @select="handleSelect" :content-position="center" -->
-    <!-- 登录 -->
-        <el-menu :default-active="1" v-if="true" class="el-menu-demo" mode="horizontal" background-color="#333333"
+    <!-- 登录  @click="quitLogin"-->
+        <el-menu :default-active="1" v-if="useUserStores().user.token" class="el-menu-demo" mode="horizontal" background-color="#333333"
           :ellipsis="false" text-color="#FDFDFD" >
           <div class="flex-grow" />
-          <el-menu-item index="1">我的订单</el-menu-item>
+          <el-menu-item><el-icon><User /></el-icon>{{useUserStores().user.account}}</el-menu-item>
           <el-divider direction="vertical"  />
-          <el-menu-item index="1">会员中心</el-menu-item>
+          <el-menu-item>我的订单</el-menu-item>
+          <el-divider direction="vertical"  />
+          <el-menu-item>会员中心</el-menu-item>
           <el-divider direction="vertical" />
-          <el-menu-item index="1">退出登录</el-menu-item>
+          <el-popconfirm title="确定退出登录么?" confirm-button-text="确认" cancel-button-text="取消" @confirm="quitLogin" >
+            <template #reference>
+              <el-menu-item>退出登录</el-menu-item>
+            </template>
+          </el-popconfirm>
         </el-menu>
-        <!-- 注册 -->
+        <!-- 未登录 -->
         <el-menu :default-active="1" v-else class="el-menu-demo" mode="horizontal" background-color="#333333"
           :ellipsis="false" text-color="#FDFDFD" >
           <div class="flex-grow" />
-          <el-menu-item index="1">请先登录</el-menu-item>
+          <el-menu-item @click="toLogin">请先登录</el-menu-item>
           <el-divider direction="vertical"  />
-          <el-menu-item index="1">帮助中心</el-menu-item>
+          <el-menu-item>帮助中心</el-menu-item>
           <el-divider direction="vertical" />
-          <el-menu-item index="1">关于我们</el-menu-item>
+          <el-menu-item>关于我们</el-menu-item>
         </el-menu>
 </template>
 <style scoped lang="scss">
@@ -38,37 +60,3 @@
       margin: auto;
     }
 </style>
-<!-- <style scoped lang="scss">
-.app-topnav {
-  background: #333;
-  ul {
-    display: flex;
-    height: 53px;
-    justify-content: flex-end;
-    align-items: center;
-    li {
-      a {
-        padding: 0 15px;
-        color: #cdcdcd;
-        line-height: 1;
-        display: inline-block;
-
-        i {
-          font-size: 14px;
-          margin-right: 2px;
-        }
-
-        &:hover {
-          color: $xtxColor;
-        }
-      }
-
-      ~li {
-        a {
-          border-left: 2px solid #666;
-        }
-      }
-    }
-  }
-}
-</style> -->

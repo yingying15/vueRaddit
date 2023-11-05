@@ -3,6 +3,7 @@
 import { getGoodsDetail } from '@/apis/goodDetail.js'
 import ListItem from './ListItem.vue'
 import { ref } from 'vue'
+import {useCartStores} from '@/stores/index.js'
 
 //得到路由参数
 import { useRoute } from 'vue-router';
@@ -31,9 +32,29 @@ const subNum=()=>{
         count.value--
     }
 }
-//sku组件输出
+//装sku对象
+let cartObj={}
+//sku组件输出 得到sku中的数据
 const changePro=(data)=>{
-    console.log(data);
+    //没选全规格
+    if(JSON.stringify(data)==='{}'){
+        return
+    }
+    cartObj=data
+}
+//加入本地购物车,没有token 
+const cartStore=useCartStores()
+const addCart=()=>{
+    cartStore.addLocalCart({
+        id:goodDetail.value.id,
+        name:goodDetail.value.name,
+        picture:goodDetail.value.mainPictures[0],
+        price:goodDetail.value.price,
+        count:count.value,
+        skuId:cartObj.skuId,
+        attrsText:cartObj.specsText,
+        selected:true//是否被选中
+    })
 }
 </script>
 <template>
@@ -102,7 +123,7 @@ const changePro=(data)=>{
                             <button @click="addNum">+</button>
                         </div>
                     </div>
-                    <el-button class="addCart" size="large" >加入购物车</el-button>
+                    <el-button class="addCart" size="large" @click="addCart">加入购物车</el-button>
                 </div>
             </div>
         </el-card>
