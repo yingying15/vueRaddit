@@ -1,7 +1,7 @@
 <script setup>
 // import MagnifierPicture from '@/components/MagnifierPicture.vue'
 import { getGoodsDetail } from '@/apis/goodDetail.js'
-import ListItem from './ListItem.vue'
+import ListItem from './components/ListItem.vue'
 import { ref } from 'vue'
 import {useCartStores} from '@/stores/index.js'
 
@@ -44,7 +44,13 @@ const changePro=(data)=>{
 }
 //加入本地购物车,没有token 
 const cartStore=useCartStores()
-const addCart=()=>{
+const addCart=async()=>{
+    //有token
+    await cartStore.addCart({
+        skuId:cartObj.skuId,
+        count:count.value
+    })
+    //没有token
     cartStore.addLocalCart({
         id:goodDetail.value.id,
         name:goodDetail.value.name,

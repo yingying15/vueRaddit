@@ -66,7 +66,6 @@ getList()
     padding: 0;
 
     .el-header {
-      background-color: red;
       position: relative;
       padding: 0;
       margin-bottom: 40px;
