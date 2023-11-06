@@ -45,22 +45,28 @@ const changePro=(data)=>{
 //加入本地购物车,没有token 
 const cartStore=useCartStores()
 const addCart=async()=>{
-    //有token
-    await cartStore.addCart({
-        skuId:cartObj.skuId,
-        count:count.value
-    })
-    //没有token
-    cartStore.addLocalCart({
-        id:goodDetail.value.id,
-        name:goodDetail.value.name,
-        picture:goodDetail.value.mainPictures[0],
-        price:goodDetail.value.price,
-        count:count.value,
-        skuId:cartObj.skuId,
-        attrsText:cartObj.specsText,
-        selected:true//是否被选中
-    })
+    if(cartStore.loginToken){
+        //有token
+        await cartStore.addCart({
+                skuId:cartObj.skuId,
+                count:count.value
+            })
+    }else{
+        //没有token
+        cartStore.addLocalCart({
+            id:goodDetail.value.id,
+            name:goodDetail.value.name,
+            picture:goodDetail.value.mainPictures[0],
+            price:goodDetail.value.price,
+            count:count.value,
+            skuId:cartObj.skuId,
+            attrsText:cartObj.specsText,
+            selected:true//是否被选中
+        })
+    }
+    
+   
+
 }
 </script>
 <template>

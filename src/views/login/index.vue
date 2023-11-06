@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from 'vue'
 import {User,Lock} from '@element-plus/icons-vue'
-import {useUserStores} from '@/stores/index.js'
+import {useUserStores,useCartStores} from '@/stores/index.js'
 // import { useRouter } from 'vue-router'
 import router from '@/router/index.js'
 //跳转到首页
@@ -39,6 +39,7 @@ const rules=({
 const flag=ref('login')
 //得到仓库
 const userStores=useUserStores()
+const cartStores=useCartStores()
 //登录注册之前预校验
 const submit=async()=>{
     await userForm.value.validate()
@@ -46,6 +47,8 @@ const submit=async()=>{
     ElMessage.success('登录成功')
     // router.replace({ path: '/' })
     router.replace('/')
+    //合并购物车
+    await cartStores.mergeCart()
 }
 
 

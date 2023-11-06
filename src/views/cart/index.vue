@@ -2,6 +2,7 @@
 
 import {useCartStores} from '@/stores/index.js'
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 const cartStores=useCartStores()
 const cartList=ref([])
 cartList.value=cartStores.cartList
@@ -17,10 +18,30 @@ const changeItem=(selected,skuId)=>{
   cartStores.itemCheck(selected,skuId)
 }
 
-//删除商品
-const delCart=(i)=>{
-  cartStores.deleteCart(i.skuId)
+const dialogVisible=ref(false)
+
+//删除单个商品
+const delCart=async(i)=>{
+  await cartStores.deleteCart(i.skuId)
   cartList.value=cartStores.cartList
+}
+
+//批量删除商品
+const deleteProducts=async()=>{
+   dialogVisible.value=false
+   await cartStores.deletePro(cartStores.checkSkuId)
+   cartList.value=cartStores.cartList
+}
+
+//下单结算
+const router=useRouter()
+const settlement=()=>{
+  if(cartStores.checkGood===0){
+    ElMessage.warning('至少选择一个商品')
+    return
+  }
+  router.push({path:'/order'})
+  
 }
 
 </script>
@@ -98,7 +119,22 @@ const delCart=(i)=>{
           <span class="red">¥ {{cartStores.checkGoodPrices.toFixed(2)}} </span>
         </div>
         <div class="total">
-          <el-button size="large" type="primary" >下单结算</el-button>
+          <el-button class="delete-btn" size="large" type="danger" @click="dialogVisible = true">删除</el-button>
+           <!-- 确认删除 -->
+           <el-dialog
+            v-model="dialogVisible"
+            width="30%">
+          <span>确定要删除么</span>
+            <template #footer>
+              <span class="dialog-footer">
+                <el-button @click="dialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="deleteProducts">
+                  确定
+                </el-button>
+              </span>
+            </template>
+          </el-dialog>
+          <el-button size="large" type="primary" @click="settlement">下单结算</el-button>
         </div>
       </div>
     </div>
@@ -219,6 +255,10 @@ const delCart=(i)=>{
       font-size: 18px;
       margin-right: 20px;
       font-weight: bold;
+    }
+    //删除按钮
+    .delete-btn{
+      margin-right: 10px;
     }
   }
 

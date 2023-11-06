@@ -11,6 +11,9 @@ dependencies:
   '@vueuse/core':
     specifier: ^10.5.0
     version: 10.5.0(vue@3.3.6)
+  element-china-area-data:
+    specifier: ^6.1.0
+    version: 6.1.0
   element-plus:
     specifier: ^2.4.1
     version: 2.4.1(vue@3.3.6)
@@ -688,6 +691,10 @@ packages:
       supports-color: 7.2.0
     dev: true
 
+  /china-division@2.7.0:
+    resolution: {integrity: sha512-4uUPAT+1WfqDh5jytq7omdCmHNk3j+k76zEG/2IqaGcYB90c2SwcixttcypdsZ3T/9tN1TTpBDoeZn+Yw/qBEA==}
+    dev: false
+
   /chokidar@3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
     engines: {node: '>= 8.10.0'}
@@ -774,6 +781,12 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /element-china-area-data@6.1.0:
+    resolution: {integrity: sha512-IkpcjwQv2A/2AxFiSoaISZ+oMw1rZCPUSOg5sOCwT5jKc96TaawmKZeY81xfxXsO0QbKxU5LLc6AirhG52hUmg==}
+    dependencies:
+      china-division: 2.7.0
+    dev: false
 
   /element-plus@2.4.1(vue@3.3.6):
     resolution: {integrity: sha512-t7nl+vQlkBKVk1Ag6AufSDyFV8YIXxTFsaya4Nz/0tiRlcz65WPN4WMFeNURuFJleu1HLNtP4YyQKMuS7El8uA==}
