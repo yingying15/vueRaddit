@@ -22,9 +22,13 @@ const toLogin=()=>{
           <div class="flex-grow" />
           <el-menu-item><el-icon><User /></el-icon>{{useUserStores().user.account}}</el-menu-item>
           <el-divider direction="vertical"  />
-          <el-menu-item>我的订单</el-menu-item>
+          <el-menu-item>
+            <RouterLink to="/userOrder">我的订单</RouterLink>
+          </el-menu-item>
           <el-divider direction="vertical"  />
-          <el-menu-item>会员中心</el-menu-item>
+          <el-menu-item>
+            <RouterLink to="/user">会员中心</RouterLink>
+          </el-menu-item>
           <el-divider direction="vertical" />
           <el-popconfirm title="确定退出登录么?" confirm-button-text="确认" cancel-button-text="取消" @confirm="quitLogin" >
             <template #reference>

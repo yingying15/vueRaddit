@@ -4,10 +4,13 @@ import { useCartStores } from '@/stores/index.js'
 import {addAddress,getAddress,setAddre} from '@/apis/address.js'
 //省市区联动
 import { regionData,codeToText } from 'element-china-area-data'
+import { getOrder } from '@/apis/order.js'
+import { useRouter } from 'vue-router';
+
 const cartStores = useCartStores()
 const cartList = ref([])
 cartList.value = cartStores.checkGoods
-
+const router=useRouter()
 
 
 //地址对象,添加
@@ -70,19 +73,16 @@ const addAddressApi=async()=>{
     dialogFormVisible.value = false
     await addAddress(addressObj.value)
 }
-
-
-//地址列表 得到所有地址getAddress 
+//获取地址列表
 const addressList=ref([])
-const dialogAddressVisible=ref(false)
-//点击切换地址
-const huanAddress=async()=>{
-    dialogAddressVisible.value=true
+const getAddrS=async()=>{
     const res=await getAddress()
     addressList.value=res.data.result
 }
-//进页面获取地址集合
-huanAddress()
+getAddrS()
+//切换地址T弹窗
+const dialogAddressVisible=ref(false)
+
 
 //切换地址,选中的对象
 const addressActive=ref({})
@@ -93,18 +93,38 @@ const addAddre=(item)=>{
 }
 //设置默认地址
 const setAddress=async()=>{
+    //关闭弹窗
+    dialogAddressVisible.value=false
     //修改地址为默认地址
     addressActive.value.isDefault=0
     //请求接口
     await setAddre(addressActive.value.id,addressActive.value)
-    //关闭弹窗
-    dialogAddressVisible.value=false
 }
 
 //得到默认地址
 const getTrueAddress=computed(()=>{
     return addressList.value.find(item=>item.isDefault===0)
 })
+
+
+
+//生成订单
+const createOrder=async ()=>{
+    const res=await getOrder({
+        deliveryTimeType:1,
+        payType:1,
+        payChannel:1,
+        buyerMessage:'',
+        goods:cartStores.checkGoods.map(item=>{
+            return{
+                skuId:item.skuId,
+                count:item.count
+            }
+        }),
+        addressId:getTrueAddress.value.id
+    })
+    router.push({path:'/payOrder',query:{id:res.data.result.id}})
+}
 </script>
 
 <template>
@@ -247,7 +267,7 @@ const getTrueAddress=computed(()=>{
             </div>
         </div>
         <div class="toOrder">
-            <el-button class="toOrder-inner" size="large">提交订单</el-button>
+            <el-button class="toOrder-inner" size="large" @click="createOrder">提交订单</el-button>
         </div>
        
     </el-card>

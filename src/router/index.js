@@ -48,9 +48,32 @@ const router = createRouter({
         {
           path:'/order',
           component:()=>import('@/views/order/index.vue')
+        },
+        {
+          path:'/payOrder',
+          component:()=>import('@/views/payOrder/index.vue')
+        },
+        //会员中心
+        {
+          path:'/user',
+          component:()=>import('@/views/user/index.vue'),
+          children:[
+            {
+              path:'',
+              component:()=>import('@/views/user/userMessage.vue')
+            },
+            {
+              path:'/userOrder',
+              component:()=>import('@/views/user/userOrder.vue')
+            }
+          ]
         }
       ]
       
+    },
+    {
+      path:'/paycallback',
+      component:()=>import('@/views/payOrder/paySuc.vue')
     }
   ],
    // 路由滚动行为定制 切换页面的时候让页面滚动到顶部
