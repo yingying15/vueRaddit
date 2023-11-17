@@ -56,7 +56,7 @@ watch([elementX, elementY, isOutside],()=>{
     positionY.value=-topY.value*2
 })
 
-
+// :style="{backgroundImage:`url(${pictures[0]})`,backgroundPositionX:`${positionX}px`,backgroundPositionY:`${positionY}px`}"></div>
 
 </script>
 <template>
@@ -67,7 +67,7 @@ watch([elementX, elementY, isOutside],()=>{
             <div class="zhe" :class="{largePicActive:!isOutside}" :style="{left:`${leftX}px`,top:`${topY}px`}"></div>
             <!-- 右边显示的大图片 -->
             <div class="largePic-right" :class="{largePicActive:!isOutside}"
-             :style="{backgroundImage:`url(${pictures[0]})`,backgroundPositionX:`${positionX}px`,backgroundPositionY:`${positionY}px`}"></div>
+             :style="{backgroundImage:`url(${pictures[LargePicture]})`,backgroundPositionX:`${positionX}px`,backgroundPositionY:`${positionY}px`}"></div>
         </div>
         <ul>
             <li v-for="(item, index) in pictures" :key=index @mouseenter="changePicture(index)" :class="{active:index===LargePicture}">

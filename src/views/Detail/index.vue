@@ -85,9 +85,9 @@ const addCart=async()=>{
                 <div class="left">
                     <!-- components中的组件自动被注册 -->
                     <!-- <MagnifierPicture :pictures="goodDetail.mainPictures"></MagnifierPicture> -->
-                    <!-- <ImageView :pictures="goodDetail.mainPictures"></ImageView> -->
+                    <ImageView :pictures="goodDetail.mainPictures"></ImageView>
                     <!-- 使用插件注册的方式,将组件进行全局注册 -->
-                    <ImageVi :pictures="goodDetail.mainPictures"></ImageVi>
+                    <!-- <ImageVi :pictures="goodDetail.mainPictures"></ImageVi> -->
                     <ul class="left-footer">
                         <li>
                             <p>销量人气</p>
@@ -206,10 +206,11 @@ const addCart=async()=>{
 //商品图片和基本信息
 .el-card {
     margin-top: 20px;
-    height: 600px;
+    
+    //height: 600px;
 
     .box {
-        height: 600px;
+        //height: 600px;
         display: flex;
         justify-content: space-between;
         box-sizing: border-box;
@@ -255,11 +256,12 @@ const addCart=async()=>{
             flex-direction: column;
             justify-content: space-between;
             align-items: flex-start;
+            overflow-y: auto;
 
             p {
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                overflow: hidden;
+                margin-top: 5px;
             }
 
             //right的儿子
@@ -293,6 +295,7 @@ const addCart=async()=>{
                 height: 140px;
                 width: 500px;
                 background-color: #F5F5F5;
+                margin-top: 15px;
 
                 //文字
                 .rightP {
